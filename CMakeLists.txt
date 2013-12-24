@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(dfftpack Fortran)
+project(dfftpack Fortran C CXX)
 enable_language(Fortran)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
