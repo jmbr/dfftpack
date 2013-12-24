@@ -15,7 +15,7 @@
 LIB=dfftpack
 
 # Use these lines for Linux/g77
-FC=g77
+FC=gfortran
 FFLAGS=-O2 -funroll-loops -fexpensive-optimizations
 
 # Use these lines for Solaris
