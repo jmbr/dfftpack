@@ -7,9 +7,9 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
 endif()
 
-set(CMAKE_Fortran_FLAGS "-g")
+set(CMAKE_Fortran_FLAGS "-Wall -g")
 set(CMAKE_Fortran_FLAGS_DEBUG "-O0")
-set(CMAKE_Fortran_FLAGS_RELEASE "-O2 -funroll-loops -fexpensive-optimizations")
+set(CMAKE_Fortran_FLAGS_RELEASE "-O3 -funroll-loops")
 
 add_library(dfftpack zfftb.f cfftb1.f zfftf.f cfftf1.f zffti.f
 cffti1.f dcosqb.f cosqb1.f dcosqf.f cosqf1.f dcosqi.f dcost.f dcosti.f
@@ -24,3 +24,10 @@ add_test(test-dfftpack test-dfftpack)
 
 add_executable(test-dfftpack test.f)
 target_link_libraries(test-dfftpack dfftpack)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(FFTW REQUIRED fftw3)
+include_directories(${FFTW_INCLUDE_DIRS})
+add_definitions(${FFTW_CFLAGS})
+add_executable(fftpack-vs-fftw fftpack-vs-fftw.cpp)
+target_link_libraries(fftpack-vs-fftw dfftpack ${FFTW_LDFLAGS} ${FFTW_LDFLAGS_OTHER})
